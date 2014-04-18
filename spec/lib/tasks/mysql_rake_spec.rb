@@ -33,7 +33,7 @@ describe 'rake tasks' do
     it 'calls exec with the correct params' do
       with_fixture("default") do
         rake 'mysql:cli'
-        expect(Kernel).to have_received(:exec).with("mysql -hHOST -uUSER -pPASSWORD -PPORT -DDATABASE");
+        expect(Kernel).to have_received(:exec).with("mysql -h\"HOST\" -u\"USER\" -p\"PASSWORD\" -P\"PORT\" -D\"DATABASE\"");
       end
     end
   end
