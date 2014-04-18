@@ -1,0 +1,6 @@
+development:
+        host: HOST
+        port: PORT
+        username: USER
+        password: PASSWORD
+        database: DATABASE
