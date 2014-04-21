@@ -9,7 +9,7 @@ namespace :mysql do
   desc "dumps to a timestamped file"
   task :dump do
     config = RailsMysql::DatabaseConfig.from_yaml(Rails.env)
-    Kernel.exec("mysqldump -h \"#{config.host}\" -u \"#{config.username}\" -p \"#{config.password}\" -P \"#{config.port}\"")
+    RailsMysql::DumpCommand.new(config).execute
   end
 
 end
