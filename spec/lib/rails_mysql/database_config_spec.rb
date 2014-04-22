@@ -7,11 +7,15 @@ describe RailsMysql::DatabaseConfig do
   let(:database_yml) {
     {
       "development" => {
+        "adapter" => "mysql2",
         'host' => 'HOST',
         'port' => 'PORT',
         'username' => 'USER',
         'password' => 'PASSWORD',
         "database" => "database",
+      },
+      "production" => {
+        "adapter" => "sqlite"
       }
     }
   }
@@ -30,5 +34,12 @@ describe RailsMysql::DatabaseConfig do
       expect(config.port).to     eq database_yml['development']['port']
       expect(config.database).to eq database_yml['development']['database']
     end
+
+    it 'throws on non-mysql adapter' do
+      expect {
+        DatabaseConfig.from_yaml("production")
+      }.to raise_error ConfigurationError
+    end
+
   end
 end

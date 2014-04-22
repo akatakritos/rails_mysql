@@ -1,4 +1,5 @@
 development:
+        adapter: mysql2
         host: HOST
         port: PORT
         username: USER
