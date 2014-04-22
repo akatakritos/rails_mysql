@@ -9,7 +9,7 @@ module RailsMysql
     attr_reader :host, :username, :password, :port, :database
 
     def initialize(options)
-      raise ConfigurationError unless options["adapter"] =~ /mysql/
+      raise ConfigurationError, "Not a mysql adapter" unless options["adapter"] =~ /mysql/
 
       @host     = options.fetch('host', 'localhost')
       @username = options.fetch('username', 'root')
