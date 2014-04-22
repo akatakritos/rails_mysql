@@ -4,8 +4,8 @@ module RailsMysql
       @config = config
     end
 
-    def execute
-      Kernel.exec(%Q{mysql -h"#{config.host}" -u"#{config.username}" -p"#{config.password}" -P"#{config.port}" -D"#{config.database}"})
+    def command
+      %Q{mysql -h"#{config.host}" -u"#{config.username}" -p"#{config.password}" -P"#{config.port}" -D"#{config.database}"}
     end
 
     private

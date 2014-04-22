@@ -3,13 +3,13 @@ namespace :mysql do
   desc "opens the cli"
   task :cli do
     config = RailsMysql::DatabaseConfig.from_yaml(Rails.env)
-    RailsMysql::CliCommand.new(config).execute
+   RakeFileUtils.sh RailsMysql::CliCommand.new(config).command
   end
 
   desc "dumps to a timestamped file"
   task :dump do
     config = RailsMysql::DatabaseConfig.from_yaml(Rails.env)
-    RailsMysql::DumpCommand.new(config).execute
+    RakeFileUtils.sh RailsMysql::DumpCommand.new(config).command
   end
 
 end

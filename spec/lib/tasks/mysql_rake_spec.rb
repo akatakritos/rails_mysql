@@ -30,7 +30,7 @@ describe 'rake tasks' do
   end
 
   describe 'rake mysql:cli' do
-    before { Kernel.stub(:exec) }
+    before { RakeFileUtils.stub(:sh) }
     before { Rails.stub(:env) { "development" } }
 
     it 'calls exec with the correct params' do
@@ -38,17 +38,18 @@ describe 'rake tasks' do
         rake 'mysql:cli'
       end
 
-      expect(Kernel).to have_received(:exec).with("mysql -h\"HOST\" -u\"USER\" -p\"PASSWORD\" -P\"PORT\" -D\"DATABASE\"");
+      expect(RakeFileUtils).to have_received(:sh).with("mysql -h\"HOST\" -u\"USER\" -p\"PASSWORD\" -P\"PORT\" -D\"DATABASE\"");
 
     end
   end
 
   describe 'rake mysql:dump' do
-    before { Kernel.stub(:exec) }
+    before { RakeFileUtils.stub(:sh) }
     before { Rails.stub(:env) { "development" } }
 
     it 'calls exec with the correct params' do
-      expect(Kernel).to receive(:exec) do |cmd|
+
+      expect(RakeFileUtils).to receive(:sh) do |cmd|
         expect(cmd).to match(/^mysqldump\b/)
         expect(cmd).to match(/-h\s+"HOST"/)
         expect(cmd).to match(/-u\s+"USER"/)
@@ -56,6 +57,7 @@ describe 'rake tasks' do
         expect(cmd).to match(/-P\s+"PORT"/)
         expect(cmd).to match(/|\s+>\s+.*/) # cats to some file
       end
+
       with_fixture("default") do
         rake 'mysql:dump'
       end

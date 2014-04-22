@@ -5,8 +5,8 @@ module RailsMysql
       @config = config
     end
 
-    def execute
-      Kernel.exec("mysqldump -h \"#{config.host}\" -P \"#{config.port}\" -u \"#{config.username}\" -p \"#{config.password}\" \"#{config.database}\" | gzip > #{filename}")
+    def command
+      "mysqldump -h \"#{config.host}\" -P \"#{config.port}\" -u \"#{config.username}\" -p \"#{config.password}\" \"#{config.database}\" | gzip > #{filename}"
     end
 
     def filename

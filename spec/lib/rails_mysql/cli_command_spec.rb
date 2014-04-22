@@ -10,8 +10,7 @@ describe RailsMysql::CliCommand do
                          :port => "PORT",
                          :database => "DATABASE") }
     it 'Kernel.execs the correct parameters' do
-      command.execute
-      expect(Kernel).to have_received(:exec).with(%Q{mysql -h"HOST" -u"USERNAME" -p"PASSWORD" -P"PORT" -D"DATABASE"})
+      expect(command.command).to eq(%Q{mysql -h"HOST" -u"USERNAME" -p"PASSWORD" -P"PORT" -D"DATABASE"})
     end
   end
 end

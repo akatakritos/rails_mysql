@@ -26,39 +26,29 @@ describe RailsMysql::DumpCommand do
   }
 
 
-  before do
-    Kernel.stub(:exec)
-  end
+  it 'returns mysqldump with the right params' do
+    cmd = RailsMysql::DumpCommand.new(config).command
 
-  it 'kernel execs mysqldump with the right params' do
-    expect(Kernel).to receive(:exec) do |cmd|
-      options = parse_options(cmd[/^[^\|]+/])
-      expect(options[:cmd]).to      eq "mysqldump"
-      expect(options[:host]).to     eq config.host
-      expect(options[:port]).to     eq config.port
-      expect(options[:username]).to eq config.username
-      expect(options[:password]).to eq config.password
-      expect(options[:args]).to     eq [config.database]
-    end
+    options = parse_options(cmd[/^[^\|]+/])
+    expect(options[:cmd]).to      eq "mysqldump"
+    expect(options[:host]).to     eq config.host
+    expect(options[:port]).to     eq config.port
+    expect(options[:username]).to eq config.username
+    expect(options[:password]).to eq config.password
+    expect(options[:args]).to     eq [config.database]
 
-    RailsMysql::DumpCommand.new(config).execute
   end
 
   it 'pipes through gzip' do
-    expect(Kernel).to receive(:exec) do |cmd|
-      expect(cmd).to match(/\|\s+gzip\s+>.*$/)
-    end
-
-    RailsMysql::DumpCommand.new(config).execute
+    cmd = RailsMysql::DumpCommand.new(config).command
+    expect(cmd).to match(/\|\s+gzip\s+>.*$/)
   end
 
   it 'cats out to its filename' do
     dumper = RailsMysql::DumpCommand.new(config)
-    expect(Kernel).to receive(:exec) do |cmd|
-      expect(cmd).to match(/\s>\s+#{Regexp.escape(dumper.filename)}$/)
-    end
+    cmd = dumper.command
+    expect(cmd).to match(/\s>\s+#{Regexp.escape(dumper.filename)}$/)
 
-    dumper.execute
   end
 
   describe 'filename' do
