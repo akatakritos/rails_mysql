@@ -35,12 +35,12 @@ describe 'rake tasks' do
     it 'calls exec with the correct params' do
       expect(RakeFileUtils).to receive(:sh) do |cmd|
         opts = parse_options(cmd)
-        expect(opts[:cmd]).to      eq 'mysql'
-        expect(opts[:host]).to     eq 'HOST'
-        expect(opts[:username]).to eq "USER"
-        expect(opts[:password]).to eq "PASSWORD"
-        expect(opts[:port]).to     eq "PORT"
-        expect(opts[:database]).to eq "DATABASE"
+        expect(opts[:cmd]).to eq 'mysql'
+        expect(opts["-h"]).to eq 'HOST'
+        expect(opts["-u"]).to eq "USER"
+        expect(opts["-p"]).to eq "PASSWORD"
+        expect(opts["-P"]).to eq "PORT"
+        expect(opts["-D"]).to eq "DATABASE"
       end
 
       with_fixture("default") do
@@ -61,12 +61,13 @@ describe 'rake tasks' do
       expect(RakeFileUtils).to receive(:sh) do |cmd|
         opts = parse_options(cmd)
 
-        expect(opts[:cmd]).to      eq 'mysqldump'
-        expect(opts[:host]).to     eq 'HOST'
-        expect(opts[:username]).to eq "USER"
-        expect(opts[:password]).to eq "PASSWORD"
-        expect(opts[:port]).to     eq "PORT"
-        expect(cmd).to             pipe_to "gzip"
+        expect(opts[:cmd]).to eq 'mysqldump'
+        expect(opts["-h"]).to eq 'HOST'
+        expect(opts["-u"]).to eq "USER"
+        expect(opts["-p"]).to eq "PASSWORD"
+        expect(opts["-P"]).to eq "PORT"
+
+        expect(cmd).to pipe_to "gzip"
       end
 
       with_fixture("default") do

@@ -16,12 +16,12 @@ describe RailsMysql::DumpCommand do
     cmd = RailsMysql::DumpCommand.new(config).command
 
     options = parse_options(cmd[/^[^\|]+/])
-    expect(options[:cmd]).to      eq "mysqldump"
-    expect(options[:host]).to     eq config.host
-    expect(options[:port]).to     eq config.port
-    expect(options[:username]).to eq config.username
-    expect(options[:password]).to eq config.password
-    expect(options[:args]).to     eq [config.database]
+    expect(options[:cmd]).to  eq "mysqldump"
+    expect(options["-h"]).to  eq config.host
+    expect(options["-P"]).to  eq config.port
+    expect(options["-u"]).to  eq config.username
+    expect(options["-p"]).to  eq config.password
+    expect(options[:args]).to eq [config.database]
 
   end
 
@@ -34,11 +34,11 @@ describe RailsMysql::DumpCommand do
     dumper = RailsMysql::DumpCommand.new(config)
     cmd = dumper.command
     expect(cmd).to match(/\s>\s+#{Regexp.escape(dumper.filename)}$/)
-
   end
 
   describe 'filename' do
     let(:dumper) { RailsMysql::DumpCommand.new(config) }
+
     it 'is in the db folder' do
       expect(dumper.filename).to start_with("db/")
     end
