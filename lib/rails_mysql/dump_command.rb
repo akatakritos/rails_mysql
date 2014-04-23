@@ -6,7 +6,7 @@ module RailsMysql
     end
 
     def command
-      "mysqldump -h \"#{config.host}\" -P \"#{config.port}\" -u \"#{config.username}\" -p \"#{config.password}\" \"#{config.database}\" | gzip > #{filename}"
+      "mysqldump -h \"#{config.host}\" -P \"#{config.port}\" -u \"#{config.username}\" -p\"#{config.password}\" \"#{config.database}\" | gzip > #{filename}"
     end
 
     def filename

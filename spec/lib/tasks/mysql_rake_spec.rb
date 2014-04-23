@@ -53,7 +53,7 @@ describe 'rake tasks' do
         expect(cmd).to match(/^mysqldump\b/)
         expect(cmd).to match(/-h\s+"HOST"/)
         expect(cmd).to match(/-u\s+"USER"/)
-        expect(cmd).to match(/-p\s+"PASSWORD"/)
+        expect(cmd).to match(/-p\"PASSWORD"/)
         expect(cmd).to match(/-P\s+"PORT"/)
         expect(cmd).to match(/|\s+>\s+.*/) # cats to some file
       end
