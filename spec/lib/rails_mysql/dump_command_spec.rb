@@ -1,20 +1,6 @@
 require 'spec_helper'
 require 'optparse'
 
-def parse_options(cmd)
-  splitted_cmd = cmd.shellsplit
-  options = {}
-  OptionParser.new do |opts|
-    opts.on("-h host") { |h| options[:host] = h }
-    opts.on("-u username") { |u| options[:username] = u }
-    opts.on("-p password") { |p| options[:password] = p }
-    opts.on("-P port") { |p| options[:port] = p }
-  end.parse!(splitted_cmd)
-  
-  options[:cmd] = splitted_cmd.first
-  options[:args] = splitted_cmd[1..-1]
-  options
-end
 describe RailsMysql::DumpCommand do
   let(:config) {
     double(
@@ -41,7 +27,7 @@ describe RailsMysql::DumpCommand do
 
   it 'pipes through gzip' do
     cmd = RailsMysql::DumpCommand.new(config).command
-    expect(cmd).to match(/\|\s+gzip\s+>.*$/)
+    expect(cmd).to pipe_to("gzip")
   end
 
   it 'cats out to its filename' do

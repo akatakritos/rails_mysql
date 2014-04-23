@@ -21,7 +21,6 @@ ensure
   Dir.chdir old_path
 end
 
-
 describe 'rake tasks' do
 
   before(:all) do
@@ -34,11 +33,21 @@ describe 'rake tasks' do
     before { Rails.stub(:env) { "development" } }
 
     it 'calls exec with the correct params' do
+      expect(RakeFileUtils).to receive(:sh) do |cmd|
+        opts = parse_options(cmd)
+        expect(opts[:cmd]).to      eq 'mysql'
+        expect(opts[:host]).to     eq 'HOST'
+        expect(opts[:username]).to eq "USER"
+        expect(opts[:password]).to eq "PASSWORD"
+        expect(opts[:port]).to     eq "PORT"
+        expect(opts[:database]).to eq "DATABASE"
+      end
+
       with_fixture("default") do
         rake 'mysql:cli'
       end
 
-      expect(RakeFileUtils).to have_received(:sh).with("mysql -h\"HOST\" -u\"USER\" -p\"PASSWORD\" -P\"PORT\" -D\"DATABASE\"");
+      #expect(RakeFileUtils).to have_received(:sh).with("mysql -h\"HOST\" -u\"USER\" -p\"PASSWORD\" -P\"PORT\" -D\"DATABASE\"");
 
     end
   end
@@ -50,12 +59,14 @@ describe 'rake tasks' do
     it 'calls exec with the correct params' do
 
       expect(RakeFileUtils).to receive(:sh) do |cmd|
-        expect(cmd).to match(/^mysqldump\b/)
-        expect(cmd).to match(/-h\s+"HOST"/)
-        expect(cmd).to match(/-u\s+"USER"/)
-        expect(cmd).to match(/-p\"PASSWORD"/)
-        expect(cmd).to match(/-P\s+"PORT"/)
-        expect(cmd).to match(/|\s+>\s+.*/) # cats to some file
+        opts = parse_options(cmd)
+
+        expect(opts[:cmd]).to      eq 'mysqldump'
+        expect(opts[:host]).to     eq 'HOST'
+        expect(opts[:username]).to eq "USER"
+        expect(opts[:password]).to eq "PASSWORD"
+        expect(opts[:port]).to     eq "PORT"
+        expect(cmd).to             pipe_to "gzip"
       end
 
       with_fixture("default") do
