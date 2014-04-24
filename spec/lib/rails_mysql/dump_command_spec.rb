@@ -25,6 +25,11 @@ describe RailsMysql::DumpCommand do
 
   end
 
+  it 'doesnt have a space between -p and the password' do
+    cmd = described_class.new(config).command
+    expect(cmd).to_not match "\s-p\s"
+  end
+
   it 'pipes through gzip' do
     cmd = RailsMysql::DumpCommand.new(config).command
     expect(cmd).to pipe_to("gzip")
