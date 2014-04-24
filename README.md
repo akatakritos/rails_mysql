@@ -1,5 +1,7 @@
 # RailsMysql
 
+[![Gem Version](https://badge.fury.io/rb/rails_mysql.svg)](http://badge.fury.io/rb/rails_mysql)
+
 TODO: Write a gem description
 
 ## Installation
