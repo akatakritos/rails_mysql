@@ -52,7 +52,11 @@ describe RailsMysql::DumpCommand do
     end
 
     it 'is in utc' do
-      expect(Time.parse(dumper.filename[/db\/(.*?)\.sql\.gz/, 1])).to be_utc
+      expect(Time.parse(dumper.filename[/db\/.*-(.*?)\.sql\.gz/, 1])).to be_utc
+    end
+
+    it 'has the db name' do
+      expect(dumper.filename).to include "DATABASE"
     end
   end
 

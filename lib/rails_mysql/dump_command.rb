@@ -10,7 +10,7 @@ module RailsMysql
     end
 
     def filename
-      "db/#{Time.now.utc.iso8601}.sql.gz"
+      "db/#{config.database}-#{Time.now.utc.iso8601}.sql.gz"
     end
 
     private
