@@ -5,7 +5,14 @@ module RailsMysql
     end
 
     def command
-      %Q{mysql -h"#{config.host}" -u"#{config.username}" -p"#{config.password}" -P"#{config.port}" -D"#{config.database}"}
+      cmd_parts = []
+      cmd_parts << "-h\"#{config.host}\""     if config.host
+      cmd_parts << "-u\"#{config.username}\"" if config.username
+      cmd_parts << "-p\"#{config.password}\"" if config.password
+      cmd_parts << "-P\"#{config.port}\""     if config.port
+      cmd_parts << "-D\"#{config.database}\"" if config.database
+
+      %Q{mysql #{cmd_parts.join(' ')}}.strip
     end
 
     private
