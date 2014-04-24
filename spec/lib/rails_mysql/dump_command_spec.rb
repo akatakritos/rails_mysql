@@ -30,6 +30,31 @@ describe RailsMysql::DumpCommand do
     expect(cmd).to_not match "\s-p\s"
   end
 
+  def dump_without(*args)
+    args.each do |arg|
+      config.stub(arg){ nil }
+    end
+    RailsMysql::DumpCommand.new(config)
+  end
+
+  describe 'optional arguments' do
+    it 'doesnt require host' do
+      expect(dump_without(:host).command).to_not include "-h"
+    end
+
+    it 'doesnt require username' do
+      expect(dump_without(:username).command).to_not include "-u"
+    end
+
+    it 'doesnt require password' do
+      expect(dump_without(:password).command).to_not include "-p"
+    end
+
+    it 'doesnt require port' do
+      expect(dump_without(:port).command).to_not include "-P"
+    end
+  end
+
   it 'pipes through gzip' do
     cmd = RailsMysql::DumpCommand.new(config).command
     expect(cmd).to pipe_to("gzip")
