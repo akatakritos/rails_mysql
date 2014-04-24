@@ -2,6 +2,7 @@ module RailsMysql
   class DumpCommand
 
     def initialize(config)
+      raise RailsMysql::ConfigurationError, "mysqldump requires a database" unless config.database
       @config = config
     end
 

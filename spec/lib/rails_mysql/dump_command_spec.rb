@@ -55,6 +55,11 @@ describe RailsMysql::DumpCommand do
     end
   end
 
+  it 'throws when it doesnt have a database' do
+    conf = double(:database => nil)
+    expect{ RailsMysql::DumpCommand.new(conf) }.to raise_error(RailsMysql::ConfigurationError)
+  end
+
   it 'pipes through gzip' do
     cmd = RailsMysql::DumpCommand.new(config).command
     expect(cmd).to pipe_to("gzip")
