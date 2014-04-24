@@ -11,11 +11,11 @@ module RailsMysql
     def initialize(options)
       raise ConfigurationError, "Not a mysql adapter" unless options["adapter"] =~ /mysql/
 
-      @host     = options.fetch('host', 'localhost')
-      @username = options.fetch('username', 'root')
-      @password = options.fetch('password', 'root')
-      @port     = options.fetch('port', '3306')
-      @database = options.fetch('database', 'db')
+      @host     = options['host']
+      @username = options['username']
+      @password = options['password']
+      @port     = options['port']
+      @database = options['database']
     end
 
   end
