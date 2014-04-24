@@ -1,5 +1,4 @@
 module RailsMysql
-  class ConfigurationError < StandardError; end
   class DatabaseConfig
 
     def self.from_yaml(env, file='config/database.yml')

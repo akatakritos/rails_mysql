@@ -7,4 +7,5 @@ require 'rails_mysql/railtie' if defined?(Rails)
 
 module RailsMysql
   # Your code goes here...
+  class ConfigurationError < StandardError; end
 end
