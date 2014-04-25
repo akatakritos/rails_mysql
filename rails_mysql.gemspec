@@ -26,6 +26,5 @@ Gem::Specification.new do |spec|
     spec.add_runtime_dependency "rails"
   end
 
-  spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rspec"
 end
