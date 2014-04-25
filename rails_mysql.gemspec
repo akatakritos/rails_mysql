@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "rake"
 
+  # This is really only good for CI and for local development
   if RUBY_VERSION == "1.8.7"
     spec.add_runtime_dependency "rails", "< 4.0"
   else
