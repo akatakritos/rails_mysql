@@ -3,7 +3,8 @@
 [![Gem Version](https://badge.fury.io/rb/rails_mysql.svg)](http://badge.fury.io/rb/rails_mysql)
 [![Build Status](https://travis-ci.org/akatakritos/rails_mysql.svg?branch=master)](https://travis-ci.org/akatakritos/rails_mysql)
 
-TODO: Write a gem description
+Provides a few simple `Rake` wrappers to mysql command line tools that read
+their configuration from your Rails `database.yml`
 
 ## Installation
 
@@ -24,13 +25,14 @@ Or install it yourself as:
 After installation into a Rails project, it provides two rake tasks for your
 use.
 
-`rake mysql:cli` will execute the command line cli program connecting to 
-the mysql database for your current environment
+`rake mysql:cli` will execute the `mysql` command configured for connecting to
+the mysql database of your current environment
 
-`rake mysql:dump` will execute a mysqldump against your configured database.
-Dump files are gzipped and stored in in the db/ folder.
+`rake mysql:dump` will execute a `mysqldump` against your configured database.
+Dump files are gzipped and stored in in the `db/` folder named for the database
+and timestamp.
 
-Configurations are read from the standard `config/database.yml' file.
+Configurations are read from the standard `config/database.yml` file.
 
 
 ## Contributing
