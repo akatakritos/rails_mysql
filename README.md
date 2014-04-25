@@ -1,6 +1,7 @@
 # RailsMysql
 
 [![Gem Version](https://badge.fury.io/rb/rails_mysql.svg)](http://badge.fury.io/rb/rails_mysql)
+[![Build Status](https://travis-ci.org/akatakritos/rails_mysql.svg?branch=master)](https://travis-ci.org/akatakritos/rails_mysql)
 
 TODO: Write a gem description
 
